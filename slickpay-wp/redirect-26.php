@@ -1,0 +1,1 @@
+<?php header("Location: http://127.0.0.1:9000/payment/1119179BGEM1"); exit;
