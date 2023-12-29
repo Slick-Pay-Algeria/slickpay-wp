@@ -1,0 +1,82 @@
+#slickpay_deposit_checkout {
+    margin: 0 0 1em;
+    padding: 0;
+
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 4px;
+
+    list-style: none;
+}
+
+#slickpay_deposit_checkout input[type="radio"] {
+    outline: none;
+    margin: 2px 0 0;
+    width: 1em;
+    height: 1em;
+
+    border: 0px;
+}
+
+#slickpay_deposit_checkout label {
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+#slickpay_deposit_checkout li {
+    padding: 8px 24px;
+}
+
+#slickpay_deposit_checkout li:first-child {
+    background-color: rgba(0,0,0,.01);
+}
+
+#slickpay_deposit_checkout li + li {
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+#slickpay_deposit_checkout .align {
+    display: flex;
+    align-items: center;
+}
+
+#slickpay_deposit_checkout .desc {
+    display: block;
+    padding-inline-start: 28px;
+
+    color: #df7f2b;
+    font-size: 90%;
+    font-weight: 600;
+}
+
+label[for="radio-control-wc-payment-method-options-wc_gateway_slickpay"] {
+    display: block;
+}
+
+label[for="radio-control-wc-payment-method-options-wc_gateway_slickpay"]::before {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 32px;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    z-index: 15;
+
+    background-image: var(--slickpay-icon-url);
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+label[for="radio-control-wc-payment-method-options-wc_gateway_slickpay"].wc-block-components-radio-control__option-checked::before {
+    top: 16px;
+    height: 42px;
+}
+
+html[dir="rtl"] label[for="radio-control-wc-payment-method-options-wc_gateway_slickpay"]::before {
+    left: 16px;
+    right: initial;
+
+    background-position: center left;
+}

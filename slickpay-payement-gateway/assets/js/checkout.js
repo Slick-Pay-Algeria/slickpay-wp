@@ -1,0 +1,1 @@
+!function(o){setTimeout((()=>{$input=o(".wp-block-woocommerce-checkout-payment-block #radio-control-wc-payment-method-options-wc_gateway_slickpay"),$parent=!!$input.length&&$input.closest(".wc-block-components-radio-control-accordion-option"),$parent&&$parent.length&&$parent.addClass("wc-block-slickpay").prepend('<div class="icon">')}),1e3)}(jQuery);
