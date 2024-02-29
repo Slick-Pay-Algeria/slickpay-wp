@@ -3,7 +3,7 @@
 /**
  * Slick-Pay Payment Gateways for WooCommerce - Gateways Class
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @since   1.0.0
  * @author  Slick-Pay <wordpress@slick-pay.com>
  * @package spg
@@ -324,7 +324,7 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
                  *
                  * @param   int $hook Hook suffix for the current admin page.
                  * @return  void
-                 * @version 1.0.0
+                 * @version 1.0.1
                  * @since   1.0.0
                  */
                 public function slickpay_enqueue_scripts($hook)
@@ -333,7 +333,7 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
                         && !empty($_GET['tab']) && $_GET['tab'] == 'checkout'
                         && !empty($_GET['section']) && $_GET['section'] == 'wc_gateway_slickpay'
                     ) {
-                        wp_enqueue_script('slickpay_scripts', WC_Slickpay_Payment_Gateways::plugin_url() . '/resources/js/script.js');
+                        wp_enqueue_script('slickpay_scripts', WC_Slickpay_Payment_Gateways::plugin_url() . '/assets/js/script.js');
                         wp_add_inline_script('slickpay_scripts', 'var slickpayApiAccount = "' . $this->bank_account . '"; var slickpayApiUrl = {sandbox: {user: `' . $this->_api_url('sandbox', 'user') . '`, merchant: `' . $this->_api_url('sandbox', 'merchant') . '`}, live: {user: `' . $this->_api_url('live', 'user') . '`, merchant: `' . $this->_api_url('live', 'merchant') . '`}};', 'before');
                     }
                 }

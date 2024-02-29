@@ -4,7 +4,7 @@ Tags: e-commerce, ecommerce, woocommerce, payments
 Requires at least: 6.0
 Tested up to: 6.4.1
 Requires PHP: 7.3
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 
@@ -49,6 +49,9 @@ If you get any issue, feel free to [contact us](https://slick-pay.com/contact).
 4. Pay with the Slick-Pay safe payment method.
 
 == Changelog ==
+
+= 1.0.1 =
+* Minor bug fixed.
 
 = 1.0.0 =
 * Initial release.
