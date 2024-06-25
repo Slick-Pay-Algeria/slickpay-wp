@@ -239,11 +239,11 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
                                 // $customer_order->update_meta_data('slickpay_transaction_approvalCode', $log['approvalCode']);
                                 // $customer_order->update_meta_data('slickpay_transaction_respCode', $log['respCode_desc']);
 
-                                if (!$customer_order->get_meta('slickpay_deposit', true)) {
-                                    $customer_order->payment_complete();
-                                } else {
+                                if ($customer_order->get_meta('slickpay_deposit', true)) {
                                     $customer_order->add_order_note($this->_get_note($customer_order));
-                                }
+                                } 
+                                
+                                $customer_order->payment_complete();
 
                                 $customer_order->save();
 
