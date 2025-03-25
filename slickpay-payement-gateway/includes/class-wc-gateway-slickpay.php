@@ -3,7 +3,7 @@
 /**
  * Slick-Pay Payment Gateways for WooCommerce - Gateways Class
  *
- * @version 1.0.1
+ * @version 1.0.3
  * @since   1.0.0
  * @author  Slick-Pay <wordpress@slick-pay.com>
  * @package spg
@@ -28,7 +28,7 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
             class WC_Gateway_Slickpay extends WC_Payment_Gateway
             {
                 // Plugin settings vars
-                public $api_environment, $account_type, $bank_account, $api_module, $public_key;
+                public $api_environment, $account_type, $bank_account, $api_module, $public_key,$after_payment;
 
                 public function __construct()
                 {
@@ -66,16 +66,21 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
                             'desc_tip' => esc_html__('Select your bank account.', 'slickpay-payement-gateway'),
                             'options'  => $this->_slickpay_user_accounts(),
                         ),
-                        // 'deposit_status' => array(
-                        //     'title'    => esc_html__('Enable Deposits', 'slickpay-payement-gateway'),
-                        //     'type'     => 'select',
-                        //     'desc_tip' => esc_html__('Once activated, a new field deposit appears on the product edit page at the general tab.', 'slickpay-payement-gateway'),
-                        //     'default'  => 'off',
-                        //     'options'  => [
-                        //         'off' => esc_html__('Disable', 'slickpay-payement-gateway'),
-                        //         'on'   => esc_html__('Enable', 'slickpay-payement-gateway'),
-                        //     ]
-                        // ),
+                        'after_payment' => array(
+                            'title'    => esc_html__('After payment done, i want the order status to be', 'slickpay-payement-gateway'),
+                            'type'     => 'select',
+                            'desc_tip' => esc_html__('The order status that will be after that the payment was successful', 'slickpay-payement-gateway'),
+                            'default'  => 'completed',
+                            'options'  => [
+                                'Completed' => esc_html__('Completed', 'slickpay-payement-gateway'),
+                                'Pending Payment'   => esc_html__('Pending Payment', 'slickpay-payement-gateway'),
+                                'Failed'   => esc_html__('Failed', 'slickpay-payement-gateway'),
+                                'Processing'   => esc_html__('Processing ', 'slickpay-payement-gateway'),
+                                'On hold'   => esc_html__('On hold', 'slickpay-payement-gateway'),
+                                'Canceled '   => esc_html__('Canceled', 'slickpay-payement-gateway'),
+                                'Refunded'   => esc_html__('Refunded', 'slickpay-payement-gateway'),
+                            ]
+                        ),
                         'api_environment' => array(
                             'title'    => esc_html__('API environment', 'slickpay-payement-gateway'),
                             'type'     => 'select',
@@ -250,11 +255,14 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
                                 // this is important part for empty cart
                                 $woocommerce->cart->empty_cart();
                             } else {
-                                $customer_order->add_order_note(esc_html__("Slick-Pay.com payment status error !", 'slickpay-payement-gateway'));
+                                // $customer_order->add_order_note(esc_html__("Slick-Pay.com payment status error !", 'slickpay-payement-gateway'));
+
+                                $customer_order->update_status( 'failed', esc_html__("Slick-Pay.com payment status error !", 'slickpay-payement-gateway')); // $this->get_option( 'error_message' )
 
                                 wc_clear_notices();
                                 wc_add_notice(esc_html__("An error has occured, please reload the page !", 'slickpay-payement-gateway'), 'error');
                                 wc_print_notices();
+
                             }
                         } catch (\Exception $e) {
                             wc_clear_notices();
