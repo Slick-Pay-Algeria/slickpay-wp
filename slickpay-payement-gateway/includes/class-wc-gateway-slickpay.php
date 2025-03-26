@@ -72,13 +72,14 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
                             'desc_tip' => esc_html__('The order status that will be after that the payment was successful', 'slickpay-payement-gateway'),
                             'default'  => 'completed',
                             'options'  => [
-                                'Completed' => esc_html__('Completed', 'slickpay-payement-gateway'),
-                                'Pending Payment'   => esc_html__('Pending Payment', 'slickpay-payement-gateway'),
-                                'Failed'   => esc_html__('Failed', 'slickpay-payement-gateway'),
-                                'Processing'   => esc_html__('Processing ', 'slickpay-payement-gateway'),
-                                'On hold'   => esc_html__('On hold', 'slickpay-payement-gateway'),
-                                'Canceled '   => esc_html__('Canceled', 'slickpay-payement-gateway'),
-                                'Refunded'   => esc_html__('Refunded', 'slickpay-payement-gateway'),
+                                'completed' => esc_html__('Completed', 'slickpay-payement-gateway'),
+                                'pending'   => esc_html__('Pending Payment', 'slickpay-payement-gateway'),
+                                'failed'    => esc_html__('Failed', 'slickpay-payement-gateway'),
+                                'processing'=> esc_html__('Processing', 'slickpay-payement-gateway'),
+                                'on-hold'   => esc_html__('On hold', 'slickpay-payement-gateway'),
+                                'cancelled' => esc_html__('Cancelled', 'slickpay-payement-gateway'),
+                                'refunded'  => esc_html__('Refunded', 'slickpay-payement-gateway'),
+                                'draft'     => esc_html__('Draft', 'slickpay-payement-gateway'),
                             ]
                         ),
                         'api_environment' => array(
@@ -227,7 +228,7 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
                             ) {
 
                                 // Payment successful
-                                $customer_order->add_order_note(esc_html__("Slick-Pay.com payment completed.", 'slickpay-payement-gateway'));
+                                $customer_order->add_order_note(esc_html__("SlickPay payment completed.", 'slickpay-payement-gateway'));
 
                                 if ($redirect = realpath(plugin_dir_path(__FILE__) . 'redirect-' . $order_id . '.php')) {
                                     @unlink($redirect);
@@ -245,11 +246,12 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
                                 // $customer_order->update_meta_data('slickpay_transaction_respCode', $log['respCode_desc']);
 
                                 if (!$customer_order->get_meta('slickpay_deposit', true)) {
-                                    $customer_order->payment_complete();
+                                    $customer_order->update_status( $this->after_payment, esc_html__("SlickPay payment confirmed", 'slickpay-payement-gateway'));
+                                    // $customer_order->payment_complete();
                                 } else {
                                     $customer_order->add_order_note($this->_get_note($customer_order));
                                 }
-
+				    
                                 $customer_order->save();
 
                                 // this is important part for empty cart
@@ -737,7 +739,7 @@ if (!function_exists('init_wc_gateway_slickpay_class')) {
                     // Load the settings.
                     $this->init_form_fields();
                     $this->init_settings();
-
+			
                     // Turn these settings into variables we can use
                     foreach ($this->settings as $setting_key => $value) {
                         $this->{$setting_key} = $value;
