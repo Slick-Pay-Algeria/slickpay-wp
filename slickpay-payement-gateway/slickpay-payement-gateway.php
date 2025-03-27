@@ -4,7 +4,7 @@
  * Plugin Name: Slick-Pay Payment Gateway
  * Plugin URI: https://wordpress.org/plugins/slickpay-payement-gateway/
  * Description: Slick-Pay.com Payment Gateway Plug-in for WooCommerce.
- * Version: 1.0.1
+ * Version: 1.0.3
  *
  * Author: Slick-Pay
  * Author URI: https://slick-pay.com
